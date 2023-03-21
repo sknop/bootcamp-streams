@@ -1,0 +1,4 @@
+/.idea/
+terraform.tfstate*
+/bootcamp-streams.iml
+/.terraform/

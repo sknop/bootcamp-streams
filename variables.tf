@@ -24,6 +24,6 @@ variable "confluent_env_id" {
   default = ""
 }
 
-variable "service_accounts" {
-  type = list(string)
+variable "service_accounts_file" {
+  type = string
 }

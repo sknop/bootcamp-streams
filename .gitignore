@@ -2,3 +2,4 @@
 terraform.tfstate*
 /bootcamp-streams.iml
 /.terraform/
+*.csv

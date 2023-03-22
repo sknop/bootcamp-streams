@@ -77,9 +77,6 @@ resource "confluent_api_key" "env-manager-cluster-api-key" {
     confluent_role_binding.app-manager-cluster-admin
   ]
 
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 locals {
@@ -123,10 +120,6 @@ resource "confluent_schema_registry_cluster" "essentials" {
     # but you should to place both in the same cloud and region to restrict the fault isolation boundary.
     id = data.confluent_schema_registry_region.bootcamp.id
   }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "confluent_api_key" "bootcamp-schema-registry-api-key" {
@@ -148,9 +141,6 @@ resource "confluent_api_key" "bootcamp-schema-registry-api-key" {
     }
   }
 
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 
@@ -199,12 +189,16 @@ resource "confluent_kafka_topic" "region" {
   }
 }
 
+locals {
+  service_accounts = csvdecode(file("${path.module}/${var.service_accounts_file}"))
+}
+
 module "bootcamp_create_service_account" {
-  count                           = length(var.service_accounts)
+  count                           = length(local.service_accounts)
   api_key                         = var.confluent_api_key
   api_secret                      = var.confluent_api_secret
   source                          = "./module"
-  service_account                 = element(var.service_accounts, count.index)
+  service_account                 = element(local.service_accounts, count.index).user
   confluent_cluster_rest_endpoint = confluent_kafka_cluster.bootcamp-cluster.rest_endpoint
   confluent_cluster_version       = confluent_kafka_cluster.bootcamp-cluster.api_version
   confluent_cluster_kind          = confluent_kafka_cluster.bootcamp-cluster.kind

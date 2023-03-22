@@ -29,7 +29,7 @@ The cloud API key required to create the environment and cluster
 can be added to `terraform.tfvars`, or, preferrably, in the 
 environment. I use `direnv` for that purpose and update `.envrc`.
 
-````
+```shell
 export TF_VAR_confluent_api_key="YOUR KEY"
 export TF_VAR_confluent_api_secret="YOUR SECRET"
-````
+```

@@ -93,7 +93,7 @@ resource "local_file" "api-key" {
 # --------------------------------------------------------------
 
 resource "confluent_service_account" "bootcamp-schema-registry-manager" {
-  display_name = "bootcamp_schema_registry_manager"
+  display_name = "streams_bootcamp_schema_registry_manager"
   description  = "Service account to manage schemas under 'stream_bootcamp' environment on Confluent Cloud"
 }
 
@@ -160,7 +160,7 @@ resource "local_file" "schema-api-key" {
 # --------------------------------------------------------------
 
 resource "confluent_service_account" "app-ksql" {
-  display_name = "stream-app-ksql"
+  display_name = "streams-app-ksql"
   description  = "Service account to manage 'example' ksqlDB cluster"
 }
 
